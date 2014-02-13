@@ -1,3 +1,3 @@
 module.exports = {
-		url : 'hillbuntu.local/cah_dev'
+		url : 'jerrysrigs.com:27017/cah_dev'
 	}
