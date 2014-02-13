@@ -7,7 +7,7 @@ var app = angular.module('GroupCtrl', [], function () {
 
 
 app.controller('GroupController', function ($scope, $http) {
-  $scope.tagline = 'Nothing beats a pocket protector!';
+$scope.tagline = 'Nothing beats a pocket protector!';
 
 
 
@@ -18,6 +18,8 @@ app.controller('GroupController', function ($scope, $http) {
 	    success(function(data, status, headers, config) {
 	      $scope.items = data;
 	    });
+
+
 });
 
 

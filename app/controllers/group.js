@@ -13,8 +13,8 @@ var Schema = mongoose.Schema
  
  
 var GroupSchema2 = new Schema({
-    nick        : {type: String, required: true, unique: true, trim: true }
-  , email       : {type: String, required: true, unique: true, trim: true, lowercase: true }
+    nick        : {type: String,  trim: true }
+  , email       : {type: String,  trim: true, lowercase: true }
 });
  
 
@@ -43,16 +43,18 @@ exports.article = function(req, res, next, id) {
  */
 exports.create = function(req, res) {
     var article = new Group(req.body);
-    
+   
 
     article.save(function(err) {
         if (err) {
+             console.log(err);
             return res.send('/', {
                 errors: err.errors,
                 article: article
             });
         } else {
             res.jsonp(article);
+             console.log(req.body);
         }
     });
 };
