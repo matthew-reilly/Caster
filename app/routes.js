@@ -2,7 +2,7 @@
 
 var groups = require('./controllers/group');
 var cards = require('./controllers/card');
-
+var users = require('./controllers/user');
 /**
  * Module dependencies.
  */
@@ -22,7 +22,7 @@ var cards = require('./controllers/card');
 
 		app.get('/api/cards', cards.all);
 
-
+		app.get('/api/users', users.all);
 		// sample api route
 		app.get('/api/groups', groups.all);
 	 

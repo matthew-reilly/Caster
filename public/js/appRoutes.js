@@ -16,7 +16,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		.when('/groups', {
 			templateUrl: 'views/group.html',
 			controller: 'GroupController'	
-		});
+		})
+		.when('/users', {
+			templateUrl: 'views/users.html',
+			controller: 'UserController'	
+		});;
 
 	$locationProvider.html5Mode(true);
 

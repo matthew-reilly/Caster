@@ -4,29 +4,26 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose');
-require('../models.js').initialize();
+
 
 
 var Schema = mongoose.Schema
-  , ObjectId = Schema.ObjectId();
+  , ObjectId = Schema.ObjectId()
  
- var Card = mongoose.model('Card');
-  
-
-var GroupSchema2 = new Schema({
-    nick        : {type: String,  trim: true }
-  , email       : {type: String,  trim: true, lowercase: true }
-  , cards       :  [Card.Schema]
-
+ 
+ 
+var GroupSchema = new Schema({
+    nick        : {type: String, required: true, unique: true, trim: true }
+  , email       : {type: String, required: true, unique: true, trim: true, lowercase: true }
 });
  
-
-mongoose.model('Group', GroupSchema2);
-
-
+ 
+ mongoose.model('User', GroupSchema);
 
 
-var Group = mongoose.model('Group');
+
+
+var User = mongoose.model('User');
 
 
 /**
@@ -45,26 +42,17 @@ exports.article = function(req, res, next, id) {
  * Create a article
  */
 exports.create = function(req, res) {
-    var article = new Group(req.body);
-   
-    var todo = new Group();
-      
-      todo.email      = req.body.email;
-      todo.nick    = req.body.nick;
-      todo.updated_at = Date.now();
-      todo.cards.push({ card_text : "t"});
- 
+    var article = new Article(req.body);
+    article.user = req.user;
 
-    todo.save(function(err) {
+    article.save(function(err) {
         if (err) {
-             console.log(err);
-            return res.send('/', {
+            return res.send('users/signup', {
                 errors: err.errors,
                 article: article
             });
         } else {
             res.jsonp(article);
-             console.log(req.body);
         }
     });
 };
@@ -118,7 +106,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    Group.find().exec(function(err, articles) {
+    User.find().exec(function(err, articles) {
         if (err) {
             res.render('error', {
                 status: 500
