@@ -1,3 +1,3 @@
 module.exports = {
-		url : 'mongodb://hillbuntu.local'
+		url : 'hillbuntu.local/cah_dev'
 	}
