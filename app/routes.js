@@ -6,35 +6,37 @@ var users = require('./controllers/user');
 /**
  * Module dependencies.
  */
-    var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 
+var Group = mongoose.model('Group');
 
 
-    var Group = mongoose.model('Group');
+module.exports = function(app) {
 
+    // api routes ===========================================================
+    // authentication routes
 
-	module.exports = function(app) {
+    app.get('/api/cards', cards.all);
 
-		// server routes ===========================================================
-		// handle things like api calls
-		// authentication routes
+    app.get('/api/users', users.all);
+    // sample api route
+    app.get('/api/groups', groups.all);
 
-		app.get('/api/cards', cards.all);
+    app.post('/api/group/create', groups.create);
 
-		app.get('/api/users', users.all);
-		// sample api route
-		app.get('/api/groups', groups.all);
-	 
-	    app.post('/api/group/create', groups.create);
+    // route to handle creating (app.post)
+    // route to handle delete (app.delete)
 
-		// route to handle creating (app.post)
-		// route to handle delete (app.delete)
+    // frontend routes =========================================================
+    app.get('/io/tv', function(req, res) {
+        res.sendfile('./public/io/tv.html'); // load our public/views/index.html file
+    });
+    app.get('/io/phone', function(req, res) {
+        res.sendfile('./public/io/phone.html'); // load our public/views/index.html file
+    });
+    app.get('*', function(req, res) {
+        res.sendfile('./public/index.html'); // load our public/views/index.html file
+    });
 
-		// frontend routes =========================================================
-		// route to handle all angular requests
-		app.get('*', function(req, res) {
-			res.sendfile('./public/views/index.html'); // load our public/views/index.html file
-		});
-
-	};
+};

@@ -17,14 +17,15 @@
     <ScriptArguments />
     <NodejsPort>8080</NodejsPort>
     <StartWebBrowser>True</StartWebBrowser>
-    <LaunchUrl>http://localhost:8080/tv.html</LaunchUrl>
+    <LaunchUrl>http://localhost:8080/io/tv</LaunchUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="public\tv.html" />
+    <Content Include="public\io\phone.html" />
+    <Content Include="public\io\tv.html" />
     <Content Include="README.md" />
     <Compile Include="server.js" />
     <Compile Include="app\routes.js" />
@@ -53,6 +54,7 @@
     <Folder Include="public\js" />
     <Folder Include="public\js\controllers" />
     <Folder Include="public\js\services" />
+    <Folder Include="public\io\" />
     <Folder Include="public\views" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
