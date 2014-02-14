@@ -27,8 +27,18 @@ $scope.tagline = 'Nothing beats a pocket protector!';
 
 app.controller('GroupDetailController', function ($scope, $routeParams) {
  
+	 
 
+
+
+	//this is where we get the details of the group. Cards played, cards dealt, etc.
 	$scope.groupId = $routeParams.groupId;
+
+	//current card
+	$scope.card = {text : "Cardtext"};
+
+	//played cards
+	$scope.played;
 
 
 });
