@@ -16,7 +16,7 @@ var Schema = mongoose.Schema
 var GroupSchema2 = new Schema({
     nick        : {type: String,  trim: true }
   , email       : {type: String,  trim: true, lowercase: true }
-  , cards       :  [Card.Schema]
+  , cards       : [Card.Schema]
 
 });
  
