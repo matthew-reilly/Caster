@@ -23,11 +23,14 @@ $scope.tagline = 'Nothing beats a pocket protector!';
 });
 
 
+ 
+
+app.controller('GroupDetailController', function ($scope, $routeParams) {
+ 
+
+	$scope.groupId = $routeParams.groupId;
+
+
+});
 
  
-app.controller('Formc', function ($scope) {
-  
-        $scope.groupName2 = 'guest';
-  
-	    
-});

@@ -17,6 +17,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/group.html',
 			controller: 'GroupController'	
 		})
+		.when('/group/:groupId', {
+			templateUrl: 'views/groupdetail.html',
+			controller: 'GroupDetailController'	
+		})
 		.when('/users', {
 			templateUrl: 'views/users.html',
 			controller: 'UserController'	
