@@ -35,6 +35,16 @@ module.exports = function(app) {
     app.get('/io/phone', function(req, res) {
         res.sendfile('./public/io/phone.html'); // load our public/views/index.html file
     });
+    
+    app.get('/', function(req, res) {
+        res.sendfile('./public/index.html'); // load our public/views/index.html file
+    });
+
+    app.get('/views/:name', function(req, res) {
+        var name = req.params.name;
+        res.render('views/' + name);
+    });
+
     app.get('*', function(req, res) {
         res.sendfile('./public/index.html'); // load our public/views/index.html file
     });
