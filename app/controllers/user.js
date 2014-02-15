@@ -3,19 +3,27 @@
 /**
  * Module dependencies.
  */
+var response = require('../models/response');
 var mongoose = require('mongoose');
-
+ 
 var User = mongoose.model('user', UserSchema);
-
+ 
 /**
  * List of Users
  */
 exports.all = function(req, res) {
     User.find().exec(function(err, user) {
+
         if (err) {
-            res.render(err);
+        	response.success=false;
+        	response.msg="Could not load users";
+            res.render(response);
         } else {
-            res.jsonp(user);
+        	response.result = user;
+        	response.err_code=0;
+        	response.msg ="Yay";
+        	response.success=true;
+            res.jsonp(response);
         }
     });
 };

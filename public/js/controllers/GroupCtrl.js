@@ -25,17 +25,27 @@ $scope.tagline = 'Nothing beats a pocket protector!';
 
  
 
-app.controller('GroupDetailController', function ($scope, $routeParams) {
+app.controller('GroupDetailController', function ($scope, $http, $routeParams) {
  
 	 
+	$http.get('/api/room/'+$routeParams.groupId).
+	    success(function(data, status, headers, config) {
+	   		if(data.success){
+				$scope.room = data;
+	      		console.log("Room error: ");
 
+	   		}
+	      		 
+	      	else
+	      		$scope.errorMsg = "No Room";
+	    });
 
 
 	//this is where we get the details of the group. Cards played, cards dealt, etc.
-	$scope.groupId = $routeParams.groupId;
+	//$scope.groupId = $routeParams.groupId;
 
 	//current card
-	$scope.card = {text : "Cardtext"};
+	$scope.name= $scope.name;
 
 	//played cards
 	$scope.played;

@@ -17,7 +17,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/group.html',
 			controller: 'GroupController'	
 		})
-		.when('/group/:groupId', {
+		.when('/room/:groupId', {
 			templateUrl: 'views/groupdetail.html',
 			controller: 'GroupDetailController'	
 		})

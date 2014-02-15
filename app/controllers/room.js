@@ -9,6 +9,10 @@ var Room = mongoose.model('room', RoomSchema);
 var Player = mongoose.model('player', PlayerSchema);
 var User = mongoose.model('user', UserSchema);
 
+
+var Response
+
+
 /**
  * Create new room
 */
