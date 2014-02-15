@@ -1,16 +1,16 @@
+var mongoose = require('mongoose');
+
+//USER MODEL
+
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId
-  , Validations = require('./validations.js')
   , salt = 'mySaltyString'
-  , SHA2 = new (require('jshashes').SHA512)()
+
+//Create User schema
+UserSchema = new Schema({
+	user_id: { type: String, required: true, unique: true },
+	name: { type:  String, required: true },
+	joined_dt: { type: Date, default: Date.now }
+}); 
  
- 
- 
-var GroupSchema = new Schema({
-    nick        : {type: String, required: true, unique: true, trim: true }
-  , email       : {type: String, required: true, unique: true, trim: true, lowercase: true }
-  , password    : {type: String, set: encodePassword, required: true }
-});
- 
- 
-mongoose.model('Group', GroupSchema);
+var User = mongoose.model('user', UserSchema);
