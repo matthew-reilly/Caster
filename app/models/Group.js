@@ -1,3 +1,7 @@
+var mongoose = require('mongoose');
+
+//CARD MODEL
+
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId
   , Validations = require('./validations.js')

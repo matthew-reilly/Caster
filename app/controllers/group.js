@@ -4,8 +4,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose');
-require('../models.js').initialize();
-
 
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId();

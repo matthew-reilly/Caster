@@ -27,8 +27,11 @@ app.configure(function() {
     app.use(express.methodOverride()); // have the ability to simulate DELETE and PUT
 });
 
-// routes ==================================================
-require('./app/routes')(app); // configure our routes
+// include models ===========================================
+require('./app/models');
+
+// include routes (controllers included)=======================
+require('./app/routes')(app);
 
 // start app ===============================================
 app.listen(port); // startup our app at http://localhost:8080

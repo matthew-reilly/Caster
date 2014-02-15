@@ -1,11 +1,6 @@
-// app/routes.js
+// app/models.js
 
-
-var models = ['./controllers/group', './controllers/card', './controllers/user'];
-
-exports.initialize = function() {
-    var l = models.length;
-    for (var i = 0; i < l; i++) {
-        require(models[i]);
-    }
-};
+// models =================================================
+require('./models/Room');
+require('./models/User');
+require('./models/Card');
