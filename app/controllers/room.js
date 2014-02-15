@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose');
-
+var response = require('../models/response').response;
 var Room = mongoose.model('room', RoomSchema);
 var Player = mongoose.model('player', PlayerSchema);
 var User = mongoose.model('user', UserSchema);
@@ -76,10 +76,25 @@ exports.addplayer = function(req, res) {
 exports.findone = function(req, res) {
 	Room.findById(req.params.room_id, function(err, room) {
 		if(err) {
+			response.success=false;
+			response.result=null;
+			response.msg="No room";
 			console.log(err);
-		} else {
-			res.jsonp(room);
 		}
+		if(room==null){
+			console.log(2);
+			response.msg="No room found.";
+			response.success=false;
+		}
+		else {
+			console.log(3);
+			response.success=true;
+			response.result=room;
+		 
+			 
+		}
+		res.jsonp(response);
+ 
 	});
 };
 

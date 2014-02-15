@@ -31,13 +31,13 @@ app.controller('GroupDetailController', function ($scope, $http, $routeParams) {
 	$http.get('/api/room/'+$routeParams.groupId).
 	    success(function(data, status, headers, config) {
 	   		if(data.success){
-				$scope.room = data;
+				$scope.room = data.result;
 	      		console.log("Room error: ");
 
 	   		}
 	      		 
 	      	else
-	      		$scope.errorMsg = "No Room";
+	      		$scope.errorMsg = data.msg;
 	    });
 
 
