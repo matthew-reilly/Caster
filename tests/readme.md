@@ -3,6 +3,18 @@
 ###List All Users
 * URL
  * localhost:8080/api/users/
+ 
+###Create User
+* URL
+ * localhost:8080/api/users/create
+* Body Params
+ * user_name
+* JSON in body
+```javascript
+	{
+		"user_name": "",
+	}
+```
 
 ###List All Rooms
 * URL
