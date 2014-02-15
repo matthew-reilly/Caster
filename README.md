@@ -8,3 +8,6 @@ To Do:
 --Deal White Cards (make user hand have 7 cards [this will cover rounds with 2 white cards required])  
 --Deal Black Card to next player  
 --Change player status to inactive  
+
+
+TEST
