@@ -7,6 +7,8 @@ var rooms = require('./controllers/room');
 var cards = require('./controllers/card');
 var users = require('./controllers/user');
 
+var groups = require('./controllers/group');
+
 /**
  * Module dependencies.
  */
@@ -27,6 +29,10 @@ module.exports = function(app) {
 	app.get('/api/users', users.all);	
 	// return all cards
 	app.get('/api/cards', cards.all);
+	
+	//Group calls
+	app.get('/api/groups', groups.all);
+	app.post('/api/group/create', groups.create);
 
     // frontend routes =========================================================
     app.get('/io/tv', function(req, res) {
