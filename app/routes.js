@@ -1,32 +1,38 @@
 // app/routes.js
 
-var groups = require('./controllers/group');
+/**
+ * Include controllers
+ */
+var rooms = require('./controllers/room');
 var cards = require('./controllers/card');
 var users = require('./controllers/user');
+
+var groups = require('./controllers/group');
+
 /**
  * Module dependencies.
  */
 var mongoose = require('mongoose');
 
-
-var Group = mongoose.model('Group');
-
-
 module.exports = function(app) {
 
     // api routes ===========================================================
-    // authentication routes
-
-    app.get('/api/cards', cards.all);
-
-    app.get('/api/users', users.all);
-    // sample api route
-    app.get('/api/groups', groups.all);
-
-    app.post('/api/group/create', groups.create);
-
-    // route to handle creating (app.post)
-    // route to handle delete (app.delete)
+	// return room object by objectid
+	app.get('/api/room/:room_id', rooms.findone);
+	// create new room
+	app.post('/api/room/create', rooms.create);
+	// add player to room
+	app.post('/api/room/addplayer', rooms.addplayer);
+	// return all rooms
+	app.get('/api/room/', rooms.all);	
+	// return all users
+	app.get('/api/users', users.all);	
+	// return all cards
+	app.get('/api/cards', cards.all);
+	
+	//Group calls
+	app.get('/api/groups', groups.all);
+	app.post('/api/group/create', groups.create);
 
     // frontend routes =========================================================
     app.get('/io/tv', function(req, res) {
