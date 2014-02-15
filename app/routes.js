@@ -4,7 +4,6 @@
  * Include controllers
  */
 var rooms = require('./controllers/room');
-//var groups = require('./controllers/group');
 var cards = require('./controllers/card');
 var users = require('./controllers/user');
 
