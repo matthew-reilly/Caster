@@ -17,6 +17,11 @@ var mongoose = require('mongoose');
 module.exports = function(app) {
 
     // api routes ===========================================================
+	// create new user
+	app.post('/api/users/create', users.create);
+	// return all users
+	app.get('/api/users', users.all);	
+	
 	// return room object by objectid
 	app.get('/api/room/:room_id', rooms.findone);
 	// create new room
@@ -25,8 +30,7 @@ module.exports = function(app) {
 	app.post('/api/room/addplayer', rooms.addplayer);
 	// return all rooms
 	app.get('/api/room', rooms.all);	
-	// return all users
-	app.get('/api/users', users.all);	
+
 	// return all cards
 	app.get('/api/cards', cards.all);
 	

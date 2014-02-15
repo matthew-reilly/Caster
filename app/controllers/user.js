@@ -9,7 +9,23 @@ var mongoose = require('mongoose');
 var User = mongoose.model('user', UserSchema);
  
 /**
- * List of Users
+ * Create new user
+*/
+exports.create = function(req, res) {
+	var user = new User({
+		name: req.body.user_name
+	});
+	user.save(function(err) {
+		if(err) {
+			console.log(err);
+		} else {
+			res.jsonp(user);
+		}
+	});
+};
+ 
+/**
+ * List of users
  */
 exports.all = function(req, res) {
     User.find().exec(function(err, user) {

@@ -8,7 +8,6 @@ var Schema = mongoose.Schema
 
 //Create User schema
 UserSchema = new Schema({
-	user_id: { type: String, required: true, unique: true },
 	name: { type:  String, required: true },
 	joined_dt: { type: Date, default: Date.now }
 }); 
