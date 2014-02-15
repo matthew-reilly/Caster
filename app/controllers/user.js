@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var response = require('../models/response');
+var response = require('../models/response').response;
 var mongoose = require('mongoose');
  
 var User = mongoose.model('user', UserSchema);
@@ -22,7 +22,7 @@ exports.all = function(req, res) {
         	response.result = user;
         	response.err_code=0;
         	response.msg ="Yay";
-        	response.success=true;
+        
             res.jsonp(response);
         }
     });
