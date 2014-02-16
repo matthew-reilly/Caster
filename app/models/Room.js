@@ -8,18 +8,18 @@ var Schema = mongoose.Schema
  
 //Create Player schema
 PlayerSchema = new Schema({
-	user_id: { type: String, required: true, unique: true },
+	user_id: { type: String, required: true },
 	name: { type:  String, required: true },
 	status: { type:  String, required: true },
-	turn_order: { type: Number, required: true, unique: true },
+	turn_order: { type: Number, required: true },
 	joined_dt: { type: Date, default: Date.now }
 });
 
 //Create Playcard schema
 
 PlaycardSchema = new Schema({
-	card_id: { type: String, required: true, unique: true },
-	text: { type: String, required: true, unique: true },
+	card_id: { type: String, required: true },
+	text: { type: String, required: true  },
 	status: { type: String, required: true },
 	color: { type: String, required: true },
 	owner_winner: { type: String, required: true }
@@ -41,3 +41,6 @@ var Player = mongoose.model('player', PlayerSchema);
  
 //Create Room model 
 var Room = mongoose.model('room', RoomSchema);
+
+//Create Room model 
+var PlayingCard = mongoose.model('playcard', PlaycardSchema);

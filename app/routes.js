@@ -24,6 +24,11 @@ module.exports = function(app) {
 	
 	// return room object by objectid
 	app.get('/api/room/:room_id', rooms.findone);
+
+    app.get('/api/room/:room_id/players', rooms.findPlayers);
+
+
+    app.get('/api/room/:room_id/addCard', rooms.addCard);
 	// create new room
 	app.post('/api/room/create', rooms.create);
 	// add player to room
