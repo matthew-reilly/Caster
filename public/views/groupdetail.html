@@ -4,6 +4,23 @@
         <h1>{{room.name}}  </h1>
         <hr/>
 
+
+
+<div class="row">
+
+
+ <div class="panel panel-default card-black" ng-repeat="card in room.cards | filter:{color:'black'}" >
+            
+            <div class="panel-body">
+
+                <h3>{{card.text}}</h3>
+
+            </div>
+        </div>
+
+
+</div>
+
 <div class="row">
     <div class="col-md-4">
         
@@ -17,6 +34,19 @@
 
             </div>
         </div>
+
+ <h3>Messages</h3>
+
+ <a ng-click="addMessage()">Add</a>
+        <div class="panel panel-default" ng-repeat="message in messages track by $index" >
+            <div class="panel-heading">Player</div>
+            <div class="panel-body">
+
+                {{message}}
+
+            </div>
+        </div>
+
     </div>
     <div class="col-md-4">
         <h3>Current Card</h3>
@@ -32,14 +62,14 @@
 
     <div class="col-md-4">
         <h3>All Cards</h3>
-       <div class="panel panel-default card-black" ng-repeat="card in room.cards" >
+      <!--  <div class="panel panel-default card-black" ng-repeat="card in room.cards" >
             
             <div class="panel-body">
 
                 <h3>{{card.text}}</h3>
 
             </div>
-        </div>
+        </div> -->
 
     </div>
 

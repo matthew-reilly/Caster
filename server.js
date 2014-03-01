@@ -4,9 +4,10 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-
+ 
+var server = require('http').createServer(app);
 // configuration ===========================================
-
+server.listen(8080);
 // config files
 var db = require('./config/db');
 var Schema = mongoose.Schema;
@@ -19,6 +20,27 @@ mongoose.connection.on('error', function(err) {
     // Do something
     console.log(err);
 });
+
+var io = require('socket.io').listen(server);
+
+
+io.sockets.on('connection', function (socket) {
+  
+	socket.on('room', function(room) {
+        socket.join(room);
+
+    });
+
+    socket.on('message', function(room) {
+		        
+		var room = "abc123";
+		io.sockets.in(room).emit('message', 'what is going on, party people?');
+        
+    });
+
+
+});
+
 
 app.configure(function() {
     app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -33,7 +55,9 @@ require('./app/models');
 // include routes (controllers included)=======================
 require('./app/routes')(app);
 
+ 
 // start app ===============================================
-app.listen(port); // startup our app at http://localhost:8080
+//app.listen(port); // startup our app at http://localhost:8080
 console.log('Magic happens on port ' + port); // shoutout to the user
 exports = module.exports = app; // expose app
+

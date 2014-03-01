@@ -2,4 +2,4 @@ body { padding-top:30px; }
 
 
 
-.card-black{background: black; color:white;}
+.card-black{background: black; color:white; width:300px; float:left; height:400px;}
