@@ -54,14 +54,16 @@ exports.addCard = function(req, res) {
 		}
 		else {
 
+			var user = req.body.user_id;
 			for(var x=0; x<room.cards.length; x++){
 				 cards.push(room.cards[x].id);
 
 			}
-			 
+			console.log(req.body);
 			//find cards available 
-			Card.find({ _id : { $nin: cards }}, function(err, cards) {
+			Card.find({ _id : { $nin: cards }, card_type: "black"}, function(err, cards) {
 
+				console.log(cards);
 				if(err) {
 					 
 					console.log(err);
@@ -74,11 +76,11 @@ exports.addCard = function(req, res) {
 			 
 				//turn it into playing card
 				var card1 = new PlayingCard ({
-				  owner_winner: "test",
+				  owner_winner: user,
 				  status : "active",
 				  card_id : card.card_id,
 				  text: card.card_text,
-				  color: "test"
+				  color: "white"
 				});
 
 				console.log(card1);

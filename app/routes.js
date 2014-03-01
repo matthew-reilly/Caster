@@ -27,8 +27,7 @@ module.exports = function(app) {
 
     app.get('/api/room/:room_id/players', rooms.findPlayers);
 
-
-    app.get('/api/room/:room_id/addCard', rooms.addCard);
+    app.post('/api/room/:room_id/addCard', rooms.addCard);
 	// create new room
 	app.post('/api/room/create', rooms.create);
 	// add player to room
