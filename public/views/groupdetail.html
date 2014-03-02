@@ -21,11 +21,11 @@
 
       </div>
 
-       <div class="col-md-6">
- <div class="panel panel-default card-white" ng-repeat="card in room.cards | filter:{color:'black'}" >
+       <div class="col-md-6" style="position:relative">
+             <div class="panel panel-default card-white card-stack" ng-repeat="card in room.cards"  ng-style="setRotation()" >
             
-            <div class="panel-body">
-
+            <div class="panel-body" >
+ 
                 <h3>{{card.text}}</h3>
 
             </div>

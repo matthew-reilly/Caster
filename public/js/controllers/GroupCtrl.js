@@ -42,6 +42,12 @@ app.controller('GroupDetailController', function($scope, $http, $routeParams) {
 	});
 
 
+    $scope.setRotation = function(){
+         var val = Math.floor((Math.random()*23));
+        return { transform: 'rotate('+val+'deg)' };
+      
+    }
+
 	var addCard = function() {
 
 	 $http.get('/api/room/' + $routeParams.groupId + '/addCard').
