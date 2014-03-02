@@ -22,7 +22,7 @@ app.controller('GroupDetailController', function($scope, $http, $routeParams) {
     //this is where we get the details of the group. Cards played, cards dealt, etc.
     //$scope.groupId = $routeParams.groupId;
     //current card
-    var socket = io.connect('http://localhost:8080', {secure: true});
+    var socket = io.connect('https://jerrysrigs.com', {secure: true});
 
 
 
