@@ -5,13 +5,12 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var fs = require("fs");
-
 var KEY_FILE = fs.readFileSync("/etc/expresskey/private.key");
 var CERT_FILE = fs.readFileSync("/etc/expresskey/ssl.crt");
 var INT_CERT_FILE = fs.readFileSync("/etc/expresskey/sub.class1.server.ca.pem");
  
-var server = require('https').createServer({key: KEY_FILE,cert: CERT_FILE,ca: INT_CERT_FILE},app),
-    io = require('socket.io').listen(server);
+var server = require('https').createServer({key: KEY_FILE,cert: CERT_FILE,ca: INT_CERT_FILE}, app),
+    io = require('socket.io').listen(443);
 // configuration ===========================================
 server.listen(443);
 // config files
