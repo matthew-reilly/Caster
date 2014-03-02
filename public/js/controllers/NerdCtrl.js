@@ -40,7 +40,7 @@ angular.module('NerdCtrl', []).controller('NerdController', function($scope, $ht
         window.messageBus.onMessage = function(event) {
           console.log('Message [' + event.senderId + ']: ' + event.data);
           // display the message from the sender
-          $scope.startGame();
+          $scope.startGame;
 
 
           // inform all senders on the CastMessageBus of the incoming message event
