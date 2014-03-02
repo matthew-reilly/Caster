@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var response = require('../models/response').response;
+var response = require('../models/Response').response;
 var mongoose = require('mongoose');
  
 var User = mongoose.model('user', UserSchema);

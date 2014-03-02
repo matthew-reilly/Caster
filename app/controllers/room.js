@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose');
-var response = require('../models/response').response;
+var response = require('../models/Response').response;
 var Room = mongoose.model('room', RoomSchema);
 var PlayingCard = mongoose.model('playcard', PlaycardSchema);
 var Player = mongoose.model('player', PlayerSchema);
