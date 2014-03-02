@@ -12,7 +12,7 @@ To Do:
 ##Syncing changes to HILLBUNTU  
 To run the application on HILLBUNTU with the most recent changes. SSH in and run these commands:  
   
-git reset --hard  
+git pull  
 node server_https  
   
 The application should then be accessible at https://www.jerrysrigs.com
