@@ -40,8 +40,8 @@ angular.module('NerdCtrl', []).controller('NerdController', function($scope, $ht
         window.messageBus.onMessage = function(event) {
           console.log('Message [' + event.senderId + ']: ' + event.data);
           // display the message from the sender
-          $scope.startGame;
-
+          $scope.startGame();
+          startGame();
 
           // inform all senders on the CastMessageBus of the incoming message event
           // sender message listener will be invoked
@@ -63,7 +63,7 @@ angular.module('NerdCtrl', []).controller('NerdController', function($scope, $ht
 	    });
 
 	$scope.startGame = function () {
-	  
+	  	console.log('Start Game');
 		 $location.path('/room/5300730261cd0b000033e393');
       }
 
