@@ -8,8 +8,8 @@
 
 <div class="row">
 
-
- <div class="panel panel-default card-black" ng-repeat="card in room.cards | filter:{color:'black'}" >
+      <div class="col-md-6">
+             <div class="panel panel-default card-black" ng-repeat="card in room.cards | filter:{color:'black'}" >
             
             <div class="panel-body">
 
@@ -19,12 +19,29 @@
         </div>
 
 
+      </div>
+
+       <div class="col-md-6">
+ <div class="panel panel-default card-white" ng-repeat="card in room.cards | filter:{color:'black'}" >
+            
+            <div class="panel-body">
+
+                <h3>{{card.text}}</h3>
+
+            </div>
+        </div>
+
+
+      </div>
+ 
+
+
 </div>
 
 <div class="row">
     <div class="col-md-4">
         
-
+<!-- 
         <h3>Players</h3>
         <div class="panel panel-default" ng-repeat="player in room.players" >
             <div class="panel-heading">Player</div>
@@ -33,9 +50,9 @@
                 {{player.name}}
 
             </div>
-        </div>
+        </div> -->
 
- <h3>Messages</h3>
+ 
 
  <a ng-click="addMessage()">Add</a>
         <div class="panel panel-default" ng-repeat="message in messages track by $index" >
@@ -48,20 +65,9 @@
         </div>
 
     </div>
+   
     <div class="col-md-4">
-        <h3>Current Card</h3>
-        <div class="panel panel-default" >
-            <div class="panel-heading">Card</div>
-            <div class="panel-body">
-
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="col-md-4">
-        <h3>All Cards</h3>
+      
       <!--  <div class="panel panel-default card-black" ng-repeat="card in room.cards" >
             
             <div class="panel-body">
