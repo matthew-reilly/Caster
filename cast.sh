@@ -6,9 +6,6 @@
 #If this generates the user id. It will be 0 if user has root access
 uid="$(id -u)"
 
-echo
-echo "Syncing server to GitHub and launching server"
-
 #Check for root
 if [ "$uid" != 0 ]
 then
@@ -17,8 +14,17 @@ then
 fi
 
 echo
+echo "stopping all node servers"
+echo
+
+sudo forever stopall
+
+echo
+echo "Syncing server to GitHub and launching server"
+
+echo
 sudo git pull
 echo
 echo "Starting HTTPS server..."
 echo
-sudo node server_https
+sudo forever start server_https.js
