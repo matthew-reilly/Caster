@@ -1,4 +1,4 @@
-body { padding-top:30px; }
+body { padding-top:30px; background:#EFEFEF;}
 
 
 
@@ -6,7 +6,7 @@ body { padding-top:30px; }
 
 .card-white{background: white; color:black; width:300px; margin: 0 auto ; height:400px;}
 
-.card-stack{position:absolute;}
+.card-stack{position:absolute; box-shadow: 0px 0px 33px rgba(0,0,0,.1)}
 
 .status-bar{position: fixed; right:0px; top:0px; width:20%; height:100%; background: #CCC; padding:20px;}
 
