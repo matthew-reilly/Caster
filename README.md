@@ -10,9 +10,11 @@ To Do:
 --Change player status to inactive  
 
 ##Syncing changes to HILLBUNTU  
-To run the application on HILLBUNTU with the most recent changes. SSH in and run these commands:  
-  
-git pull  
-node server_https  
+To run the application on HILLBUNTU with the most recent changes, execute cast.sh script with  
+
+/var/www/Caster/cast.sh  
+or  
+./cast.sh  
+from the /var/www/Caster/ folder  
   
 The application should then be accessible at https://www.jerrysrigs.com
