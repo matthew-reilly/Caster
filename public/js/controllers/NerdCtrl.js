@@ -1,4 +1,4 @@
-angular.module('NerdCtrl', []).controller('NerdController', function($scope, $http) {
+angular.module('NerdCtrl', []).controller('NerdController', function($scope, $http, $location) {
 
 	$scope.tagline = 'Nothing beats a pocket protector!';
 
@@ -7,5 +7,9 @@ angular.module('NerdCtrl', []).controller('NerdController', function($scope, $ht
 	      $scope.items = data;
 	    });
 
+	$scope.startGame = function () {
+	  
+		 $location.path('/room/5300730261cd0b000033e393');
+      }
 
 });
