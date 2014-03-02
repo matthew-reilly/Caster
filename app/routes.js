@@ -30,8 +30,10 @@ module.exports = function(app) {
     app.post('/api/room/:room_id/addCard', rooms.addCard);
 	// create new room
 	app.post('/api/room/create', rooms.create);
+    // create new room
+    app.post('/api/room/create', rooms.create);
 	// add player to room
-	app.post('/api/room/addplayer', rooms.addplayer);
+	app.post('/api/room/:room_id/editCard', rooms.editCard);
 	// return all rooms
 	app.get('/api/room', rooms.all);	
 
