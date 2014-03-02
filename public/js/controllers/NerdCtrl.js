@@ -65,6 +65,7 @@ angular.module('NerdCtrl', []).controller('NerdController', function($scope, $ht
 	$scope.startGame = function () {
 	  	console.log('/room/5300730261cd0b000033e393');
 		 $location.path('/room/5300730261cd0b000033e393');
+		 $scope.$apply();
       }
 
 });
