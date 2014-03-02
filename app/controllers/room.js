@@ -52,6 +52,45 @@ function verifyRoom(room_id, callback) {
     });
 }
 
+
+
+//Add valid card
+/*{
+  "room_id": "5312447715a6faae4e31abb3",
+  "color"
+}*/
+
+
+
+//Count player cards
+/*{
+  "room_id": "5312447715a6faae4e31abb3",
+  "owner"
+  "color"
+}*/
+
+
+//Replenish cards
+//make sure we have 7 cards
+/*{
+  "room_id": "5312447715a6faae4e31abb3",
+}*/
+
+
+//Replenish cards
+//make sure we have 7 cards
+/*{
+  "room_id": "5312447715a6faae4e31abb3",
+}*/
+
+
+//Find next player
+/*{
+  "room_id": "5312447715a6faae4e31abb3",
+}*/
+
+
+
 //Edit a curently playing card
 //JSON
 /*{
