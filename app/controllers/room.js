@@ -69,18 +69,11 @@ function verifyRoom(room_id, callback) {
   "color"
 }*/
 
-//Replenish cards
-//make sure we have 7 cards
+//Deal hands
+//Either at start of game or start of each round, make sure all players have 7 cards.
 /*{
   "room_id": "5312447715a6faae4e31abb3",
 }*/
-
-//Replenish cards
-//make sure we have 7 cards
-/*{
-  "room_id": "5312447715a6faae4e31abb3",
-}*/
-
 
 //Find next player
 /*{
