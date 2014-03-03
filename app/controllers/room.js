@@ -11,6 +11,7 @@ var User = mongoose.model('user', UserSchema);
 var Card = mongoose.model('card', CardSchema);
 
 var Response
+
 /**
  * Create new room
  */
@@ -32,6 +33,9 @@ exports.create = function(req, res) {
     });
 };
 
+/**
+ * Verify that room exists
+ */
 function verifyRoom(room_id, callback) {
     Room.findById(room_id, function(err, room) {
         if (err) {
@@ -52,15 +56,11 @@ function verifyRoom(room_id, callback) {
     });
 }
 
-
-
 //Add valid card
 /*{
   "room_id": "5312447715a6faae4e31abb3",
   "color"
 }*/
-
-
 
 //Count player cards
 /*{
@@ -69,13 +69,11 @@ function verifyRoom(room_id, callback) {
   "color"
 }*/
 
-
 //Replenish cards
 //make sure we have 7 cards
 /*{
   "room_id": "5312447715a6faae4e31abb3",
 }*/
-
 
 //Replenish cards
 //make sure we have 7 cards
@@ -88,7 +86,6 @@ function verifyRoom(room_id, callback) {
 /*{
   "room_id": "5312447715a6faae4e31abb3",
 }*/
-
 
 
 //Edit a curently playing card
@@ -126,6 +123,16 @@ exports.editCard = function(req, res) {
         }
     });
 }
+
+//Add a card to the room
+//URL Structure - api/room/:room_id/addCard
+//Example URL - api/room/5312447715a6faae4e31abb3/addCard
+//JSON Parameters
+/*{
+  "card_id": "5312447715a6faae4e31abb3",
+  "status" : "inplay"
+  
+}*/
 exports.addCard = function(req, res) {
     var cards = [];
     Room.findById(req.params.room_id, function(err, room) {
@@ -185,6 +192,10 @@ exports.addCard = function(req, res) {
         res.jsonp(response);
     });
 };
+
+//List all players in a room
+//URL Structure - api/room/:room_id/players
+//Example URL - api/room/5312447715a6faae4e31abb3/players
 exports.findPlayers = function(req, res) {
     var players = {
         "players": []
