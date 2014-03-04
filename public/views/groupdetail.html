@@ -22,7 +22,7 @@
       </div>
 
        <div class="col-md-6" style="position:relative">
-             <div class="panel panel-default card-white card-stack" ng-repeat="card in room.cards"  ng-style="setRotation()" >
+             <div class="panel panel-default card-white card-stack" ng-style="setRotation($index)" ng-repeat="card in cards track by $index" ng-style="setRotation($index)" >
             
             <div class="panel-body" >
  
@@ -53,8 +53,8 @@
         </div> -->
 
  
-
- <a ng-click="addMessage()">Add</a>
+ <a ng-click="editCard()">Add Card</a>
+ <a ng-click="addMessage()">Add Message</a>
         <div class="panel panel-default" ng-repeat="message in messages track by $index" >
             <div class="panel-heading">Player</div>
             <div class="panel-body">

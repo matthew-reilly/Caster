@@ -1,12 +1,15 @@
 {
-    "name": "nagular",
-    "version": "1.0.0",
-    "dependencies": {
-        "bootstrap": "latest",
-        "font-awesome": "latest",
-        "animate.css": "latest",
-        "angular": "latest",
-        "angular-route": "latest",
-        "socket.io": "latest"
-    }
+  "name": "nagular",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "socket.io": "latest"
+  },
+  "resolutions": {
+    "angular": "1.2.12"
+  }
 }

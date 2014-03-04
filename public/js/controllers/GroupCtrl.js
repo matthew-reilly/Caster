@@ -1,4 +1,4 @@
-var app = angular.module('GroupCtrl', [], function() {})
+var app = angular.module('GroupCtrl', ['ngAnimate'], function() {})
 app.controller('GroupController', function($scope, $http) {
     $scope.tagline = 'Nothing beats a pocket protector!';
     $scope.groupName2 = 'guest';
@@ -7,7 +7,7 @@ app.controller('GroupController', function($scope, $http) {
         $scope.items = data;
     });
 });
-app.controller('GroupDetailController', function($scope, $http, $routeParams) {
+app.controller('GroupDetailController', function($scope, $http, $routeParams, $timeout) {
     $scope.messages = new Array();
     $http.get('/api/room/' + $routeParams.groupId).
     success(function(data, status, headers, config) {
@@ -34,16 +34,19 @@ app.controller('GroupDetailController', function($scope, $http, $routeParams) {
         $scope.$apply();
         addCard();
     });
-    $scope.setRotation = function() {
-        var val = Math.floor(((Math.random() - .5) * 40));
-        var val2 = Math.floor(((Math.random() - .5) * 70));
-        var val3 = Math.floor(((Math.random() - .5) * 70));
+
+    $scope.cards = new Array();
+
+    $scope.setRotation = function(index) {
+        var val = [2, 6, 23, 33, 4, 10, 2, 6, 23, 33, 4, 10, 2, 6, 23, 33, 4, 10, 2, 6, 23, 33, 4, 10, 2, 6, 23, 33, 4, 10, 2, 6, 23, 33, 4, 10];
+       // var m = Math.floor((Math.random()*100)+1);
         return {
-            transform: 'rotate(' + val + 'deg)',
-            marginTop: val2 + 'px',
-            marginLeft: val3 + 'px'
+            transform: 'rotate(' + val[index] + 'deg)',
+            zIndex : index
         };
     }
+
+
     var addCard = function() {
         $http.get('/api/room/' + $routeParams.groupId + '/addCard').
         success(function(data, status, headers, config) {
@@ -52,6 +55,20 @@ app.controller('GroupDetailController', function($scope, $http, $routeParams) {
             }
         });
     }
+
+
+    $scope.startCards = function() {
+         $timeout(function(){
+
+             $scope.cards2.push("asdf");
+        }, 1200);
+    }
+
+
+    $scope.editCard = function() {
+           $scope.cards.push("asdf");
+    }
+
     $scope.addMessage = function() {
         socket.emit('message', room); //emit to 'room' except this socket
         console.log("Room error: ");
@@ -62,7 +79,7 @@ app.controller('GroupDetailController', function($scope, $http, $routeParams) {
             my: 'data'
         });
     });
-    $scope.name = $scope.name;
+    //$scope.name = $scope.name;
     //played cards
     $scope.played;
 });
