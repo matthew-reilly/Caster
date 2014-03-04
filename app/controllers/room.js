@@ -49,30 +49,136 @@ function verifyRoom(room_id, callback) {
             response.msg = "No room found.";
             response.success = false;
         } else {
-            console.log("found room");
             callback(null, room)
             return true;
         }
     });
 }
 
-//Add valid card
+//Deal hands
+//Either at start of game or start of each round, make sure all players have 7 cards.
+//URL parameters
 /*{
-  "room_id": "5312447715a6faae4e31abb3",
-  "color"
+  "room_id": "XXXXXXXXXXXXXX",
+  "card_color": "white"/"black"
 }*/
+exports.dealCards = function(req, res) {
+	verifyRoom(req.body.room_id, function(err, room) {
+		if (err) {
+			respose.success = false;
+			response.msg = err;
+		} else {
+			var player_cards = [];
+			//Create list of cards in play
+			for (var x = 0; x < room.cards.length; x++) {
+				player_cards.push(room.cards[x].card_id);
+			}
+			//Create object of cards available for dealing
+			Card.find({card_id: {$nin: player_cards}, card_type: req.body.card_color}, function(err, cards) {
+				if (err) {
+					response.success = false;
+					response.msg = err;
+				} else {
+					var new_cards = [];
 
-//Count player cards
+					//Create list of card ids available for dealing
+					cards.forEach(function(card_i) {
+						new_cards.push(card_i.card_id);
+					});
+					//Shuffle card ids
+					shuffle(new_cards);
+					//Create array of shuffled card objects
+					var shuffled_cards = [];
+					for (x = 0; x < new_cards.length; x++) {
+						cards.forEach(function(card_obj) {
+							if (new_cards[x] == card_obj.card_id)
+							{
+								shuffled_cards.push(card_obj);
+							}
+						});
+					}
+					//Using this cursor will simulate dealing from the top of the shuffled deck, down
+					var deal_cursor = 0;
+					//For each player in the room
+					room.players.forEach(function(player_i) {
+						//Count player's dealt cards
+						var playerCardCount = countPlayerCards(room, player_i._id, req.body.card_color, "dealt");
+						//Deal player cards until they have 7 cards
+						for (var x = playerCardCount; x < 7; x++) {
+							//Create obj of next card to be dealt
+							var card_to_deal = shuffled_cards[deal_cursor];
+							//Iterate dealer
+							deal_cursor++;
+							//Create playing card object
+							var playing_card = new PlayingCard({
+								owner_winner: player_i._id,
+								status: "dealt",
+								card_id: card_to_deal.card_id,
+								text: card_to_deal.card_text,
+								color: req.body.card_color
+							});
+							console.log(player_i.name + ' gets card with text "' + card_to_deal.card_text + '"');
+							room.cards.push(playing_card);
+						}
+					});
+					//Save room with newly dealt cards
+					room.save(function(err) {
+						if (err) {
+							console.log("Room Save Error: ");
+							console.log(err);
+						} else {
+							response.result = room;
+							response.success = true;
+							response.msg = "cards dealt";
+
+							res.jsonp(response);
+						}
+					});
+				}
+			});
+		}
+	});
+};
+//End Deal Cards
+
+//Shuffle list. This is the most efficient way to return a randomized list, as seen here http://bost.ocks.org/mike/shuffle/
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+
+//Function countPlayerCards
 /*{
   "room_id": "5312447715a6faae4e31abb3",
   "owner"
   "color"
 }*/
+function countPlayerCards(room, playerid, card_color, card_status) {
+	var player_hand = [];
+	for (var x = 0; x < room.cards.length; x++) {
+		if (room.cards[x].owner_winner == playerid && room.cards[x].status == card_status && room.cards[x].color == card_color)
+		{
+			player_hand.push(room.cards[x].id);
+		}
+	}
+	console.log(playerid+" has "+player_hand.length+" cards");
+	return player_hand.length;
+}
 
-//Deal hands
-//Either at start of game or start of each round, make sure all players have 7 cards.
+//Add valid card
 /*{
   "room_id": "5312447715a6faae4e31abb3",
+  "color"
 }*/
 
 //Find next player
@@ -82,6 +188,8 @@ function verifyRoom(room_id, callback) {
 
 
 //Edit a curently playing card
+//URL
+//Room ID
 //JSON
 /*{
   "card_id": "5312447715a6faae4e31abb3",
