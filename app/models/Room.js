@@ -29,6 +29,7 @@ PlaycardSchema = new Schema({
 RoomSchema = new Schema({
 	name: { type: String, required: true },
 	pass: { type: String, required: true },
+	dealer_id: { type: String, required: false },
 	status: { type: String, required: true },
 	creator_id: { type: String, required: true },
 	players: [PlayerSchema],

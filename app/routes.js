@@ -20,7 +20,7 @@ module.exports = function(app) {
 	// create new user
 	app.post('/api/users/create', users.create);
 	// return all users
-	app.get('/api/users', users.all);	
+	app.get('/api/users', users.all);
 	
 	// return room object by objectid
 	app.get('/api/room/:room_id', rooms.findone);
@@ -33,10 +33,13 @@ module.exports = function(app) {
 	// add player to room
 	app.post('/api/room/:room_id/editCard', rooms.editCard);
 	// return all rooms
-	app.get('/api/room', rooms.all);	
+	app.get('/api/room', rooms.all);
 
 	app.post('/api/room/addplayer', rooms.addplayer);
 	
+	// deal cards to players
+	app.post('/api/room/nextround', rooms.nextRound);
+
 	// deal cards to players
 	app.post('/api/room/dealcards', rooms.dealCards);
 	

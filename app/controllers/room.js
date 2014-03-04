@@ -19,6 +19,7 @@ exports.create = function(req, res) {
     var room = new Room({
         name: req.body.room_name,
         pass: req.body.room_pass,
+        dealer_id: req.body.user_id,
         status: "init",
         creator_id: req.body.user_id
         //players: [], //create method to add players
@@ -79,24 +80,9 @@ exports.dealCards = function(req, res) {
                     response.success = false;
                     response.msg = err;
                 } else {
-                    var new_cards = [];
-
-                    //Create list of card ids available for dealing
-                    cards.forEach(function(card_i) {
-                        new_cards.push(card_i.card_id);
-                    });
-                    //Shuffle card ids
-                    shuffle(new_cards);
-                    //Create array of shuffled card objects
-                    var shuffled_cards = [];
-                    for (x = 0; x < new_cards.length; x++) {
-                        cards.forEach(function(card_obj) {
-                            if (new_cards[x] == card_obj.card_id)
-                            {
-                                shuffled_cards.push(card_obj);
-                            }
-                        });
-                    }
+                    
+                    //Get shuffled deck of new cards
+                    var shuffled_cards = newCardsShuffled(cards);
                     //Using this cursor will simulate dealing from the top of the shuffled deck, down
                     var deal_cursor = 0;
                     //For each player in the room
@@ -141,6 +127,28 @@ exports.dealCards = function(req, res) {
 };
 //End Deal Cards
 
+function newCardsShuffled(cards) {
+    var new_cards = [];
+
+    //Create list of card ids available for dealing
+    cards.forEach(function(card_i) {
+        new_cards.push(card_i.card_id);
+    });
+    //Shuffle card ids
+    shuffle(new_cards);
+    //Create array of shuffled card objects
+    var shuffled_cards = [];
+    for (var x = 0; x < new_cards.length; x++) {
+        cards.forEach(function(card_obj) {
+            if (new_cards[x] == card_obj.card_id)
+            {
+                shuffled_cards.push(card_obj);
+            }
+        });
+    }
+    return shuffled_cards;
+}
+
 //Shuffle list. This is the most efficient way to return a randomized list, as seen here http://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -175,17 +183,89 @@ function countPlayerCards(room, playerid, card_color, card_status) {
     return player_hand.length;
 }
 
-//Add valid card
-/*{
-  "room_id": "5312447715a6faae4e31abb3",
-  "color"
-}*/
-
 //Find next player
 /*{
   "room_id": "5312447715a6faae4e31abb3",
 }*/
+exports.nextRound = function(req, res) {
+    verifyRoom(req.body.room_id, function(err, room) {
+        if (err) {
+            respose.success = false;
+            response.msg = err;
+        } else {
+            //Set the next player to be dealer
+            var next_dealer = findNextDealer(room);
+            //Deal card to next player (in the next sections)
+            var player_cards = [];
+            //Create list of cards in play
+            for (var x = 0; x < room.cards.length; x++) {
+                player_cards.push(room.cards[x].card_id);
+            }
+            //Create object of cards available for dealing
+            Card.find({card_id: {$nin: player_cards}, card_type: "black"}, function(err, cards) {
+                if (err) {
+                    response.success = false;
+                    response.msg = err;
+                } else {
+                    //Get shuffled deck of new cards
+                    var shuffled_cards = newCardsShuffled(cards);
+                    //Create new card object and push to room
+                    var card_to_deal = shuffled_cards[0];
+                    var playing_card = new PlayingCard({
+                        owner_winner: "nowwinner",
+                        status: "queued",
+                        card_id: card_to_deal.card_id,
+                        text: card_to_deal.card_text,
+                        color: "black"
+                    });
+                    room.cards.push(playing_card);
+                    //Set current dealer
+                    room["dealer_id"] = next_dealer;
+                    //Save room with new card and dealer
+                    room.save(function(err) {
+                        if (err) {
+                            console.log("Room Save Error: ");
+                            console.log(err);
+                        } else {
+                            response.result = room;
+                            response.success = true;
+                            response.msg = "cards dealt";
 
+                            res.jsonp(response);
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
+
+function findNextDealer(room) {
+    //Grab current next_dealer
+    var current_dealer = room["dealer_id"];
+    console.log(current_dealer);
+    //Grab list of players in the room
+    var room_player_ids = [];
+    room.players.forEach(function(player) {
+        room_player_ids.push(player._id);
+    });
+    //Sort list of players
+    room_player_ids.sort();
+    //Find player ID of player after current dealer
+    for (var x = 0; x < room_player_ids.length; x++) {
+        if (room_player_ids[x] == current_dealer) {
+            //Return next player
+            x++;
+            if (room_player_ids.length != x)
+            {
+                return room_player_ids[x];
+            } else {
+                //This captures if the current dealer is the last in the list, so reiterate
+                return room_player_ids[0];
+            }
+        }
+    }
+}
 
 //Edit a curently playing card
 //URL
@@ -223,7 +303,7 @@ exports.editCard = function(req, res) {
             //console.log(room);
         }
     });
-}
+};
 
 //Add a card to the room
 //URL Structure - api/room/:room_id/addCard
@@ -320,26 +400,6 @@ exports.findPlayers = function(req, res) {
             response.result = players;
         }
         res.jsonp(response);
-    });
-};
-/**
- * Create new room
- */
-exports.create = function(req, res) {
-    var room = new Room({
-        name: req.body.room_name,
-        pass: req.body.room_pass,
-        status: "init",
-        creator_id: req.body.user_id
-        //players: [], //create method to add players
-        //cards: [] //create method to deal cards
-    });
-    room.save(function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.jsonp(room);
-        }
     });
 };
 /**
